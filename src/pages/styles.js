@@ -1,4 +1,57 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
+
+
+const rotateAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+// Estilize a imagem da roleta com a animação de rotação
+export const StyledRoleta = styled.img`
+  width: 100px;
+  height: 100px;
+  transform: rotate(0deg); /* Inicialmente, a rotação é 0 */
+  transition: transform 2s ease-in-out; /* Duração da animação de 2 segundos */
+
+`;
+
+
+export const StyledPlayButton = styled.button`
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 100%;
+  height: 20vh;
+  margin-bottom: 15px;
+
+`
+
+export const StyledQuestionBox = styled.div`
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 100%;
+  height: 20vh;
+  margin-bottom: 15px;
+
+`
+
+export const Div01 = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const StyledAnswerButton = styled.button`
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 100%;
+  height: 4vh;
+  margin: 10px;
+
+`
 
 export const GlobalStyles = createGlobalStyle`
   body {
