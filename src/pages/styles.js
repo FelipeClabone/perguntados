@@ -1,33 +1,29 @@
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
 
 
-const rotateAnimation = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+export const StyledStarBox = styled.div`
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 30vh;
+  height: 10vh;
+  margin-bottom: 60px;
+`
+
+export const StyledEstrela = styled.img`
+  width: 50px;
+  height: 50px;
+  margin: 5%
+
 `;
 
-// Estilize a imagem da roleta com a animação de rotação
 export const StyledRoleta = styled.img`
-  width: 100px;
-  height: 100px;
-  transform: rotate(0deg); /* Inicialmente, a rotação é 0 */
+  width: 400px;
+  height: 400px;
+  transform: rotate(-10deg); /* Inicialmente, a rotação é 0 */
   transition: transform 2s ease-in-out; /* Duração da animação de 2 segundos */
 
 `;
 
-
-export const StyledPlayButton = styled.button`
-  background-color: #ffffff;
-  border-radius: 10px;
-  width: 100%;
-  height: 20vh;
-  margin-bottom: 15px;
-
-`
 
 export const StyledQuestionBox = styled.div`
   background-color: #ffffff;
@@ -50,6 +46,7 @@ export const StyledAnswerButton = styled.button`
   width: 100%;
   height: 4vh;
   margin: 10px;
+  margin-top:30px;
 
 `
 
@@ -80,6 +77,8 @@ export const LeftSection = styled(SectionBase)`
 `;
 
 export const CenterSection = styled(SectionBase)`
+  display: flex;
+  justify-content: center; 
   background-color: #00F0FF;
   width: 50%;
 `;
