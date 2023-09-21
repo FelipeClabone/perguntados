@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import imgRoleta from '../img/roleta.png';
 import engrenagem from '../img/engrenagem.png'
-import estrelaCerta from '../img/estrelaCor.png'
-import estrelaPreta from '../img/estrelaPreta.png'
+import estrelaCerta from '../img/coracaoCor.png'
+import estrelaPreta from '../img/coracaoPreto.png'
+import RulesPopup from '../components/ruleModal'; // Importe o componente do popup
 
 // Importando estilos e componentes do seu código original
 import {
@@ -18,7 +19,7 @@ import {
   StyledAnswerButton,
   StyledRoleta,
   StyledStarBox,
-  StyledEstrela
+  StyledEstrela,
 } from './styles';
 import HistoricButton from '../components/HistoricButton';
 
@@ -30,9 +31,13 @@ class Index extends Component {
       history: [],
       showDiv1: true,
       spinning: false,
+      showRulesPopup: false,
       rotation: 10,
       finalRotation: 0,
       pontuacao: 3,
+      buttonClicked: null,
+      buttonCorrect: 2,
+      buttonColors: ["white", "white", "white", "white"],
     };
   }
 
@@ -100,25 +105,54 @@ class Index extends Component {
           },
           () => {
             console.log('Estado orginal');
+
           }
         );
       }, 5000);
     }
   };
+  handleAnswerButton = (buttonIndex) => {
+    // Desabilite os botões enquanto a ação estiver sendo processada
+    this.setState({ buttonClickedIndex: buttonIndex });
+  
+    // Defina todos os botões como vermelhos (botão errado)
+    const buttonColors = ["red", "red", "red", "red"];
+    buttonColors[this.state.buttonCorrect - 1] = "green";
+  
+    this.setState({ buttonColors });
+  
+    // Aguarde 10 segundos antes de alternar para a outra div
+    setTimeout(() => {
+      this.setState(
+        (prevState) => ({
+          showDiv1: !prevState.showDiv1,
+          rotation: 10,
+          buttonClickedIndex: null, // Redefina o índice do botão clicado
+          buttonColors: ["white", "white", "white", "white"],
+        }),
+        () => {
+          console.log("Alternando as divs após 10 segundos");
+        }
+      );
+    }, 5000); // 10000 milissegundos (10 segundos)
+  };
+  
+  
 
 
-  handleAnswerButton = () => {
-    this.setState(
-      prevState => ({
-        history: [...prevState.history.slice(-6), `Botão ${prevState.history.length + 1}`],
-        showDiv1: !prevState.showDiv1,
-        rotation: 10,
-      }),
-      () => {
-        console.log('Resposta selecionada e alternando as divs');
-      }
-    );
-  }
+
+
+
+  handleShowRulesPopup = () => {
+    console.log("Apertou botao engrenagem")
+    this.setState({ showRulesPopup: true });
+  };
+  handleCloseRulesPopup = () => {
+    this.setState({ showRulesPopup: false });
+  };
+
+
+
 
   render() {
     const { history, showDiv1, rotation, pontuacao } = this.state;
@@ -153,6 +187,7 @@ class Index extends Component {
             <Title>Seção Esquerda</Title>
             <Subtitle>Conteúdo da seção esquerda.</Subtitle>
             <img
+              id="imagem-engrenagem"
               src={engrenagem}
               alt="Imagem"
               style={{
@@ -161,10 +196,12 @@ class Index extends Component {
                 left: 0,
                 width: '50px',
                 height: '50px',
-                cursor: 'pointer', // Altere o cursor para indicar que a imagem é clicável
+                margin: '10px',
+                cursor: 'pointer',
               }}
-            
+              onClick={this.handleShowRulesPopup} // Adicione um evento de clique para mostrar o popup
             />
+
           </LeftSection>
           <CenterSection>
 
@@ -190,13 +227,36 @@ class Index extends Component {
               ) : (
                 <Div01 style={{ display: 'flex', flexDirection: 'column' }}>
                   <StyledQuestionBox>
-                    <p>Qual o tamanho da  do gaspar?</p>
+                    <p>O que o Gaspar e?</p>
                   </StyledQuestionBox>
                   <div >
-                    <StyledAnswerButton onClick={this.handleAnswerButton}>tamanho da estatua da liberdade</StyledAnswerButton>
-                    <StyledAnswerButton onClick={this.handleAnswerButton}>Tamanho da de um cavalo?</StyledAnswerButton>
-                    <StyledAnswerButton onClick={this.handleAnswerButton}>3,5 cm</StyledAnswerButton>
-                    <StyledAnswerButton onClick={this.handleAnswerButton}>Ele nao tem </StyledAnswerButton>
+                    <StyledAnswerButton
+                      onClick={() => this.handleAnswerButton(1)}
+                      color={this.state.buttonColors[0]}// Use a cor do estado
+                    >
+                      Incrivel
+                    </StyledAnswerButton>
+                    <StyledAnswerButton
+                      onClick={() => this.handleAnswerButton(2)}
+                      color={this.state.buttonColors[1]} // Use a cor do estado
+                    >
+                      Sensacional
+                    </StyledAnswerButton>
+                    <StyledAnswerButton
+                      onClick={() => this.handleAnswerButton(3)}
+                      color={this.state.buttonColors[2]} // Use a cor do estado
+                    >
+                      Top
+                    </StyledAnswerButton>
+                    <StyledAnswerButton
+                      onClick={() => this.handleAnswerButton(4)}
+                      color={this.state.buttonColors[3]} // Use a cor do estado
+                    >
+                      Todas acima
+                    </StyledAnswerButton>
+
+
+
                   </div>
                 </Div01>
               )}
@@ -207,6 +267,8 @@ class Index extends Component {
               <HistoricButton key={index} text={text} cor={index % 2 === 0} />
             ))}
           </RightSection>
+          {this.state.showRulesPopup && <RulesPopup closeModal={this.handleCloseRulesPopup} />}
+
         </StyledMain>
       </>
     );

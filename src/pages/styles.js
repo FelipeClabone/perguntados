@@ -1,4 +1,5 @@
-import styled, { createGlobalStyle, keyframes } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+
 
 
 export const StyledStarBox = styled.div`
@@ -40,15 +41,18 @@ export const Div01 = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 export const StyledAnswerButton = styled.button`
-  background-color: #ffffff;
+background-color: ${(props) => props.color};
   border-radius: 10px;
   width: 100%;
   height: 4vh;
   margin: 10px;
-  margin-top:30px;
-
-`
+  margin-top: 30px;
+  transition: background-color 0.3s ease; /* Adiciona uma transição suave de cor */
+  cursor: pointer;
+  
+`;
 
 export const GlobalStyles = createGlobalStyle`
   body {
@@ -73,7 +77,7 @@ export const SectionBase = styled.section`
 
 export const LeftSection = styled(SectionBase)`
   background-color: #FFD700;
-  width: 20%;
+  width: 30%;
 `;
 
 export const CenterSection = styled(SectionBase)`
@@ -85,7 +89,7 @@ export const CenterSection = styled(SectionBase)`
 
 export const RightSection = styled(SectionBase)`
   background-color: #FF4500;
-  width: 30%;
+  width: 20%;
 `;
 
 export const Title = styled.h1`
