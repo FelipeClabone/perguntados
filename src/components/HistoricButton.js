@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Button = styled.button`
   margin-right: 10%;
@@ -18,8 +19,15 @@ const Button = styled.button`
   }
 `;
 
-const HistoricButton = ({ text, cor }) => {
-  return <Button cor={cor}>{text}</Button>;
+const HistoricButton = ({ text, cor, onClick  }) => {
+  return <Button  onClick={onClick} cor={cor}>{text}</Button>;
 };
+
+HistoricButton.propTypes = {
+  text: PropTypes.string.isRequired,
+  cor: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
 
 export default HistoricButton;
