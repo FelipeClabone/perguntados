@@ -4,22 +4,23 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 export const StyledStarBox = styled.div`
   background-color: #ffffff;
+  margin-left: 180px;
   border-radius: 10px;
-  width: 30vh;
-  height: 10vh;
+  width: 25vh;
+  height: 6vh;
   margin-bottom: 60px;
 `
 
 export const StyledEstrela = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   margin: 5%
 
 `;
 
 export const StyledRoleta = styled.img`
-  width: 400px;
-  height: 400px;
+  width: 550;
+  height: 550px;
   transform: rotate(-10deg); /* Inicialmente, a rotação é 0 */
   transition: transform 2s ease-in-out; /* Duração da animação de 2 segundos */
 
@@ -30,10 +31,14 @@ export const StyledQuestionBox = styled.div`
   background-color: #ffffff;
   border-radius: 10px;
   width: 100%;
-  height: 20vh;
+  min-height: 20vh; /* Altura mínima desejada */
+  max-height: 40vh; /* Altura máxima desejada */
+  overflow-y: auto; /* Adicione uma barra de rolagem vertical se o conteúdo for muito longo */
   margin-bottom: 15px;
+  padding: 10px; /* Adicione algum preenchimento interno para espaçamento */
 
-`
+  /* Outros estilos existentes */
+`;
 
 export const Div01 = styled.div`
   width: 100%;
@@ -76,8 +81,8 @@ export const SectionBase = styled.section`
 `;
 
 export const LeftSection = styled(SectionBase)`
-  background-color: #FFD700;
-  width: 30%;
+  background-color: #00F0FF;
+  width: 20%;
 `;
 
 export const CenterSection = styled(SectionBase)`
@@ -88,7 +93,7 @@ export const CenterSection = styled(SectionBase)`
 `;
 
 export const RightSection = styled(SectionBase)`
-  background-color: #FF4500;
+  background-color: #00F0FF;
   width: 20%;
 `;
 

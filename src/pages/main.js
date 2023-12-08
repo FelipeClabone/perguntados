@@ -35,7 +35,7 @@ class Index extends Component {
       spinning: false,
       showRulesPopup: false,
       showHistoricPopup: false,
-      rotation: 10,
+      rotation: 0,
       finalRotation: 0,
       pontuacao: 3,
       buttonClicked: null,
@@ -44,7 +44,8 @@ class Index extends Component {
       pergunta: "",
       respostas: [],
       idPerguntaMain: 0,
-      indexHistoric: 0
+      indexHistoric: 0,
+      contador_pontos: 0
     };
   }
 
@@ -152,31 +153,28 @@ handleAddButton = () => {
     var categoriaRoleta = 0;
     const voltasInteiras = grausAleatorios % 360;
     console.log(voltasInteiras)
-    if (voltasInteiras > 0 && voltasInteiras < 60) {
-      console.log("Caiu no 5")
-      categoriaRoleta = 5
+    if (voltasInteiras > 0 && voltasInteiras < 72) {
+      console.log("Caiu no 5") // GERAL
+      categoriaRoleta = 0
     }
-    if (voltasInteiras >= 60 && voltasInteiras < 120) {
-      console.log("Caiu no 4")
-      categoriaRoleta = 4
-    }
-    if (voltasInteiras >= 120 && voltasInteiras < 180) {
-      console.log("Caiu no 3")
-      categoriaRoleta = 3
-    }
-    if (voltasInteiras >= 180 && voltasInteiras < 240) {
-      console.log("Caiu no 2")
-      categoriaRoleta = 2
-    }
-
-    if (voltasInteiras >= 240 && voltasInteiras < 300) {
-      console.log("Caiu no 1")
+    if (voltasInteiras >= 72 && voltasInteiras < 144) {
+      console.log("Caiu no 4") // ENTRADA E SAIDA
       categoriaRoleta = 1
     }
-    if (voltasInteiras >= 300 && voltasInteiras < 360) {
-      console.log("Caiu no 6")
-      categoriaRoleta = 6
+    if (voltasInteiras >= 144 && voltasInteiras < 216) {
+      console.log("Caiu no 3") // Sistema de arquivo
+      categoriaRoleta = 3
     }
+    if (voltasInteiras >= 216 && voltasInteiras < 288) {
+      console.log("Caiu no 2") // ESCALONADOR
+      categoriaRoleta = 4
+    }
+
+    if (voltasInteiras >= 288 && voltasInteiras < 360) {
+      console.log("Caiu no 1") // SISTEMA DE MEMORIA
+      categoriaRoleta = 5
+    }
+
 
 
 
@@ -228,6 +226,7 @@ handleAnswerButton = (buttonIndex) => {
   if (this.state.buttonCorrect === buttonIndex) {
     this.setState((prevState) => ({
       history: [...prevState.history, [ this.state.idPerguntaMain, true]],
+      contador_pontos: this.state.contador_pontos + 1
     }), () => {
       console.log(this.state.history);
     });
@@ -287,7 +286,7 @@ handleCloseRulesPopup = () => {
 
 
 render() {
-  const { history, showDiv1, rotation, pontuacao, pergunta, respostas,idPerguntaMain } = this.state;
+  const { history, showDiv1, rotation, pontuacao, pergunta, respostas,idPerguntaMain,contador_pontos } = this.state;
   const reversedHistory = [...history].reverse();
 
   const estrelas = [];
@@ -316,8 +315,6 @@ render() {
       <GlobalStyles />
       <StyledMain>
         <LeftSection>
-          <Title>Seção Esquerda</Title>
-          <Subtitle>Conteúdo da seção esquerda.</Subtitle>
           <img
             id="imagem-engrenagem"
             src={engrenagem}
@@ -342,6 +339,9 @@ render() {
               <div>
                 <StyledStarBox>
                   {estrelas}
+                </StyledStarBox>
+                <StyledStarBox>
+                <p style={{ display: 'inline-block' }}>Pontos: {contador_pontos}</p>
                 </StyledStarBox>
                 <StyledRoleta
                   src={imgRoleta}
